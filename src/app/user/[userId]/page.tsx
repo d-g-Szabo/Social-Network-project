@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache";
 export default function UserId() {
   // need to destructure userId from clerk auth
   //! the userId is a character-numerical string that clerk creates AFTER the user signs up for clerk in the sign-up page (<SignUp/>)
-  const { userId } = auth();
+  // const { userId } = auth();
 
   // need a form for user to add their data
   // need a handle submit function
