@@ -5,35 +5,35 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-// export default function UserId() {
-//   // need to destructure userId from clerk auth
-//   //! the userId is a character-numerical string that clerk creates AFTER the user signs up for clerk in the sign-up page (<SignUp/>)
-//   const { userId } = auth();
+export default function UserId() {
+  // need to destructure userId from clerk auth
+  //! the userId is a character-numerical string that clerk creates AFTER the user signs up for clerk in the sign-up page (<SignUp/>)
+  const { userId } = auth();
 
-//   // need a form for user to add their data
-//   // need a handle submit function
-//   async function handleSubmit(formData) {
-//     // need to specify that we are in the server
-//     // need to activate the db connection
-//     // need to get the form data input
-//     const name = formData.get("name");
+  // need a form for user to add their data
+  // need a handle submit function
+  //   async function handleSubmit(formData) {
+  //     // need to specify that we are in the server
+  //     // need to activate the db connection
+  //     // need to get the form data input
+  //     const name = formData.get("name");
 
-//     // need to insert the data into the db
-//     //! sql is incomplete
-//     await db.query(`INSERT INTO users (clerk_id) VALUES ($1)`, [userId]);
-//     // need to revalidate the path
-//     // can also redirect if I want
-//   }
-//   return (
-//     <main className="">
-//       <h1>User Profile</h1>
-//       {/* need a form here! */}
-//       <h1>User Profile</h1>
-//       <h2>Your data!</h2>
-//       {/* can show the current users data in here--> look below for clues */}
-//     </main>
-//   );
-// }
+  //     // need to insert the data into the db
+  //     //! sql is incomplete
+  //     await db.query(`INSERT INTO users (clerk_id) VALUES ($1)`, [userId]);
+  //     // need to revalidate the path
+  //     // can also redirect if I want
+  //   }
+  return (
+    <main className="">
+      <h1>User Profile</h1>
+      {/* need a form here! */}
+      <h1>User Profile</h1>
+      <h2>Your data!</h2>
+      {/* can show the current users data in here--> look below for clues */}
+    </main>
+  );
+}
 
 // //==========================Show currentUser's data==========================//
 // // combine this with the code above
