@@ -1,35 +1,69 @@
 //import the connection to our db --> you need a users table in the db (id, clerk_id, username, bio, location...)
+import dbConnect from "@/utils/dbConnection";
 //import clerk stuff
-//TODO set up .env.local file with you Supabase and CLerk env variables
-//todo will need a utils file with the connection set up to the db
 import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-export default function UserId() {
+import EditFormComp from "@/components/EditForm";
+
+export default async function UserId() {
   // need to destructure userId from clerk auth
   //! the userId is a character-numerical string that clerk creates AFTER the user signs up for clerk in the sign-up page (<SignUp/>)
-  // const { userId } = auth();
+  const { userId } = auth();
+  const db = dbConnect();
+  const userData = (
+    await db.query(`SELECT * FROM users WHERE clerk_id = $1`, [userId])
+  ).rows[0];
+  // if the user has no data, redirect them to the create profile page
+  if (!userData) {
+    redirect(`/create-profile-page/${userId}`);
+  }
 
   // need a form for user to add their data
   // need a handle submit function
-  //   async function handleSubmit(formData) {
-  //     // need to specify that we are in the server
-  //     // need to activate the db connection
-  //     // need to get the form data input
-  //     const name = formData.get("name");
+  async function handleSubmit(formData: FormData) {
+    "use server";
+    const db = dbConnect();
 
-  //     // need to insert the data into the db
-  //     //! sql is incomplete
-  //     await db.query(`INSERT INTO users (clerk_id) VALUES ($1)`, [userId]);
-  //     // need to revalidate the path
-  //     // can also redirect if I want
-  //   }
+    // need to specify that we are in the server
+    // need to activate the db connection
+    // need to get the form data input
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const middleName = formData.get("middleName");
+    const gender = formData.get("gender");
+    const aboutMe = formData.get("aboutMe");
+    // email is not in the form data so I need to get it from the clerk user data object
+    // todo maybe bug here if the user changes the primary email address
+    const userData = await currentUser();
+    const email = userData?.emailAddresses[0].emailAddress;
+
+    // need to update the users data in the db
+    await db.query(
+      `UPDATE users SET first_name = $1, last_name = $2, middle_name = $3, gender = $4, email = $5, about_me = $6 WHERE clerk_id = $7`,
+      [
+        firstName,
+        lastName,
+        middleName ? middleName : null, // if middleName is empty, insert null into
+        gender,
+        email,
+        aboutMe ? aboutMe : null, // if aboutMe is empty, insert null into
+        userId,
+      ]
+    );
+    // need to revalidate the path
+    // can also redirect if I want
+  }
+
   return (
-    <main className="">
-      <h1>User Profile</h1>
+    <main>
+      <h1>Edit your profile:</h1>
       {/* need a form here! */}
-      <h1>User Profile</h1>
-      <h2>Your data!</h2>
+      <form action={handleSubmit}>
+        <EditFormComp />
+        <button type="submit">Edit</button>
+      </form>
       {/* can show the current users data in here--> look below for clues */}
     </main>
   );
