@@ -11,7 +11,9 @@
   "dependencies": {
     "@clerk/elements": "^0.10.4",
     "@clerk/nextjs": "^5.2.4",
+    "@types/pg": "^8.11.6",
     "next": "14.2.5",
+    "pg": "^8.12.0",
     "react": "^18",
     "react-dom": "^18"
   },
