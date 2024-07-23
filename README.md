@@ -14,7 +14,7 @@ Project: Build a Social Network app
 
 🎯 Show a 404 error if a user profile doesn't exist
 
-🎯 Use at least 1 Radix UI Primitive or similar
+🎯 Use at least 1 Radix UI Primitive or similar (I used shadcn)
 
 I met all the requirements for this assignment.
 
@@ -35,9 +35,6 @@ Stretch Stories:
 # Wireframe:
 
 ![](https://github.com/d-g-Szabo/react-full-stack-app/blob/ca99ec2c35d12d46869c01f128fd5ed8eed837d0/client/public/database_driven_full_stack_react___express_app_wireframe1.jpg)
-![](https://github.com/d-g-Szabo/react-full-stack-app/blob/ca99ec2c35d12d46869c01f128fd5ed8eed837d0/client/public/database_driven_full_stack_react___express_app_wireframe2.jpg)
-![](https://github.com/d-g-Szabo/react-full-stack-app/blob/ca99ec2c35d12d46869c01f128fd5ed8eed837d0/client/public/database_driven_full_stack_react___express_app_wireframe3.jpg)
-![](https://github.com/d-g-Szabo/react-full-stack-app/blob/ca99ec2c35d12d46869c01f128fd5ed8eed837d0/client/public/database_driven_full_stack_react___express_app_wireframe4.jpg)
 
 # Component flow:
 
@@ -55,25 +52,20 @@ Stretch Stories:
 
 🏹 Enable users to visit other user profiles after seeing their posts on a global timeline
 
-🏹 Enable users to follow other users by creating a follower and follwee relationship between two user profiles
-
-🏹 Enable users to like other users' posts by creating a user_id and liked_post relationship in a junction table
-
 🏹 A user's biography cannot be blank. If a user logs in but doesn't have a biography set, they should be asked to fill one in
+
+🏹 Use TypeScript
 
 # Reflections:
 
 What went really well, and what could have gone better?
+Using shadcn was easy, but I think I could have less pages. I feel like I overcomplicated the folder structure.
 
 Useful external sources that helped me complete the assignment (e.g Youtube tutorials).
+https://ui.shadcn.com/docs/installation/next
 
 Errors or bugs I encountered while completing your assignment.
+I had a few bugs with Clerk when I wanted to use "currentUser," but it was fine after I had figured out the object structure.
 
 Requesting feedback about a specific part of your submission:
-
-tables:
-need 2 tables containing clerk_id and a posts table connected to the users by the clerk_id --> foreign key in the posts table. one to many relationship --> one user has many posts
-if you are doing the likes stretch goal, you need a third table for likes
-if you are doing the followers stretch goal, you need a junction table for the follower_id and the followee_id, many tp mant relationship --> cos one user can follow many users and those users can also follow many users themselves
-when you deploy to vercel, remeber to add all the env vars (clerk and database)
-if you are using typescript make sure you dont have type errors, type errors break your deployment.
+I could have reused components and made fewer folders(pages) if I had structured my site better.

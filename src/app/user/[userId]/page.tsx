@@ -7,10 +7,18 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import EditFormComp from "@/components/EditForm";
 
-export default async function UserId() {
+export default async function UserId({
+  params,
+}: {
+  params: { userId: string };
+}) {
   // need to destructure userId from clerk auth
   //! the userId is a character-numerical string that clerk creates AFTER the user signs up for clerk in the sign-up page (<SignUp/>)
   const { userId } = auth();
+  // if the userId is not the same as the userId in the params, redirect them to the home page
+  if (userId !== params.userId) {
+    redirect(`/`);
+  }
   const db = dbConnect();
   const userData = (
     await db.query(`SELECT * FROM users WHERE clerk_id = $1`, [userId])
@@ -54,45 +62,40 @@ export default async function UserId() {
     );
     // need to revalidate the path
     // can also redirect if I want
+    revalidatePath(`/user/${userId}`);
   }
 
+  const posts = (
+    await db.query(
+      `SELECT * FROM posts WHERE user_clerk_id = $1 ORDER BY posts.id desc`,
+      [userId]
+    )
+  ).rows;
+
   return (
-    <main>
-      <h1>Edit your profile:</h1>
-      {/* need a form here! */}
-      <form action={handleSubmit}>
-        <EditFormComp />
-        <button type="submit">Edit</button>
-      </form>
-      {/* can show the current users data in here--> look below for clues */}
+    <main className="flex justify-center mt-8">
+      <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-4 space-y-6">
+        <h1 className="text-xl font-semibold text-gray-800">Your Profile:</h1>
+        <form action={handleSubmit} className="space-y-4">
+          <EditFormComp />
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Edit
+          </button>
+        </form>
+        <h1 className="text-xl font-semibold text-gray-800">Posts:</h1>
+        <div className="space-y-4">
+          {posts.map((post: any, key: number) => {
+            return (
+              <div key={key} className="bg-gray-100 p-4 rounded-lg shadow">
+                <p className="text-gray-800">{post.content}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </main>
   );
 }
-
-// //==========================Show currentUser's data==========================//
-// // combine this with the code above
-// import { currentUser } from "@clerk/nextjs/server";
-// export default async function UserIdPage() {
-//   // check if we have current user data
-//   const { userId } = auth();
-//   if (!userId) {
-//     return redirect("/sign-in");
-//   }
-//   if (userId) {
-//     // add a sql query getting the users data
-//   }
-
-//   // access the currentUser data
-//   const userData = await currentUser();
-//   console.log(userData);
-//   return (
-//     <main className="">
-//       {/* can conditionally render an element to redirect the user to complete their profiles, and then, show the users data */}
-//       <h1>Current User</h1>
-//       <p>
-//         Welcome! your name is: {userData?.firstName} {userData?.lastName}
-//       </p>
-//       <p>Your email is this:</p>
-//     </main>
-//   );
-// }

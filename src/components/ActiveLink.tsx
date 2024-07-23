@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { buttonVariants } from "@/components/ui/button";
 
 // children is a prop that is passed to the component that will be rendered inside the component
 export function ActiveLink({
@@ -19,7 +20,16 @@ export function ActiveLink({
 
   return (
     // add a class to the link if it is active to change the color
-    <Link href={href} className={isActive ? "text-orange-400" : ""}>
+    <Link
+      href={href}
+      className={
+        isActive
+          ? `${buttonVariants({ variant: "outline" })} ${
+              isActive ? "text-blue-400" : ""
+            } hover:text-blue-400`
+          : buttonVariants({ variant: "outline" })
+      }
+    >
       {/* // pass the children prop to the link to render the text inside the link tag */}
       {children}
     </Link>

@@ -8,6 +8,7 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 export default function HeaderComponent() {
   const { userId } = auth();
@@ -16,9 +17,9 @@ export default function HeaderComponent() {
   //     console.log("user ID: " + userId);
   //   }
   return (
-    <header className="flex justify-around items-center p-4">
-      <h1 className="text-2xl font-bold">Yourplace</h1>
-      <nav>
+    <header className="flex justify-around items-center p-4 bg-white shadow-md sticky top-0 z-50">
+      <h1 className="text-2xl font-bold text-gray-800">Yourplace</h1>
+      <nav className="flex space-x-4">
         <ActiveLink href="/">Home</ActiveLink>
         {/* authentication navigation */}
         <SignedIn>
@@ -26,8 +27,12 @@ export default function HeaderComponent() {
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <SignInButton>Sign in</SignInButton>
-          <SignUpButton>Sign up</SignUpButton>
+          <Button asChild variant="outline">
+            <SignInButton>Sign in</SignInButton>
+          </Button>
+          <Button asChild variant="outline">
+            <SignUpButton>Sign up</SignUpButton>
+          </Button>
         </SignedOut>
       </nav>
     </header>
