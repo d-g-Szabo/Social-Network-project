@@ -34,19 +34,15 @@ Stretch Stories:
 
 # Wireframe:
 
-![](https://github.com/d-g-Szabo/react-full-stack-app/blob/ca99ec2c35d12d46869c01f128fd5ed8eed837d0/client/public/database_driven_full_stack_react___express_app_wireframe1.jpg)
-
-# Component flow:
-
-![](https://github.com/d-g-Szabo/react-full-stack-app/blob/ca99ec2c35d12d46869c01f128fd5ed8eed837d0/client/public/database_driven_full_stack_react_express_app-component-tree.jpg)
+![](https://github.com/d-g-Szabo/Social-Network-project/blob/1c1d1aa0734580a88a54b3ddfdd096acc7e8ea3c/public/wireframejpg.jpg)
 
 # Database schema:
 
-![](https://github.com/d-g-Szabo/react-full-stack-app/blob/ca99ec2c35d12d46869c01f128fd5ed8eed837d0/client/public/database_driven_full_stack_react___express_app-database-schema.jpg)
+![](https://github.com/d-g-Szabo/Social-Network-project/blob/1c1d1aa0734580a88a54b3ddfdd096acc7e8ea3c/public/sql.png)
 
 # Trello project planning:
 
-![](https://github.com/d-g-Szabo/react-full-stack-app/blob/7ebfb55698386939315740c6befbb125b88703ae/client/public/database_driven_full_stack_react___express_app-trello.jpg)
+![](https://github.com/d-g-Szabo/Social-Network-project/blob/1c1d1aa0734580a88a54b3ddfdd096acc7e8ea3c/public/social-media-project-trello.jpg)
 
 # Stretch Goals:
 
@@ -59,13 +55,17 @@ Stretch Stories:
 # Reflections:
 
 What went really well, and what could have gone better?
+
 Using shadcn was easy, but I think I could have less pages. I feel like I overcomplicated the folder structure.
 
 Useful external sources that helped me complete the assignment (e.g Youtube tutorials).
+
 https://ui.shadcn.com/docs/installation/next
 
 Errors or bugs I encountered while completing your assignment.
+
 I had a few bugs with Clerk when I wanted to use "currentUser," but it was fine after I had figured out the object structure.
 
 Requesting feedback about a specific part of your submission:
+
 I could have reused components and made fewer folders(pages) if I had structured my site better.
